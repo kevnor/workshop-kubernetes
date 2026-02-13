@@ -1,4 +1,4 @@
-# LAB 02 – Deployments + YAML + Service
+# LAB 03 – Deployments + YAML + Service
 
 ## Læringsmål
 
@@ -152,7 +152,7 @@ kubectl rollout history deployment/web -n <namespace>
 
 # Del D — Service (stabil tilgang)
 
-## 1) Lag `service.yaml`
+## 1) Lag `service-lb.yaml`
 
 Lim inn:
 
@@ -160,47 +160,34 @@ Lim inn:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-svc
+  name: web-lb
+  namespace: lab02
 spec:
+  type: LoadBalancer
   selector:
     app: web
   ports:
   - port: 80
     targetPort: 80
-  type: ClusterIP
 ```
-
-Forklaring:
-
-* Service velger pods via `selector`
-* Gir fast DNS/IP internt i clusteret
 
 ---
 
 ## 2) Opprett service
 
 ```bash
-kubectl apply -f service.yaml -n <namespace>
-kubectl get svc -n <namespace>
+kubectl apply -f service-lb.yaml -n <namespace>
 ```
 
-👉 Oppgave:
-
-* Hvilken `CLUSTER-IP` fikk `web-svc`?
-
----
-
-## 3) Test service med port-forward
+Kjør til EXTERNAL-IP ikke lenger er <pending>:
 
 ```bash
-kubectl port-forward svc/web-svc 8080:80 -n <namespace>
+kubectl get svc -n <namespace> web-lb -w
 ```
 
-Åpne:
+Når du ser en IP, test i nettleser.
 
-* `http://localhost:8080`
-
-Stop med `CTRL+C`.
+Hva som skjer i AKS: Kubernetes LoadBalancer-service gjør at Azure oppretter/konfigurerer en Azure Load Balancer + Public IP for tjenesten.
 
 ---
 
@@ -215,7 +202,7 @@ kubectl get pods --show-labels -l app=web -n <namespace>
 ## 2) Se “endpoints” service peker på
 
 ```bash
-kubectl get endpoints web-svc -n <namespace>
+kubectl get endpoints web-lb -n <namespace>
 ```
 
 👉 Oppgave:
@@ -227,10 +214,10 @@ kubectl get endpoints web-svc -n <namespace>
 
 # Mini-quiz (muntlig)
 
-1. Hva er forskjellen på Pod og Deployment?
-2. Hvorfor trenger vi Service?
-3. Hva kobler Deployment og Service sammen?
-4. Hvorfor bruker vi `kubectl apply` og YAML i stedet for bare `kubectl run`?
+1. Hva kobler Service og Pods sammen?
+2. Hvorfor er Pod IP “upålitelig”?
+3. Hva er forskjellen på ClusterIP og LoadBalancer?
+4. Hvor sjekker du hvorfor en service ikke virker?
 
 ---
 
@@ -239,32 +226,7 @@ kubectl get endpoints web-svc -n <namespace>
 Når dere er ferdig:
 
 ```bash
-kubectl delete -f service.yaml -n <namespace>
+kubectl delete -f service-lb.yaml -n <namespace>
 kubectl delete -f deployment.yaml -n <namespace>
 ```
 
----
-
-# Bonus (valgfritt): Eksponer ut av clusteret
-
-Bytt service type til NodePort:
-
-I `service.yaml`:
-
-```yaml
-type: NodePort
-```
-
-Apply:
-
-```bash
-kubectl apply -f service.yaml -n <namespace>
-kubectl get svc web-svc -n <namespace>
-```
-
-👉 Oppgave:
-
-* Finn NodePort
-* Diskuter: hvorfor er dette ofte “ok for demo”, men ikke alltid for prod?
-
----
