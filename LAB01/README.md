@@ -1,6 +1,6 @@
-# 🐳 LAB 01 – Fra Dockerfile til kjørende container
+# LAB 01 – Fra Dockerfile til kjørende container
 
-## 🎯 Mål
+## Mål
 
 Etter denne laben skal du kunne:
 
