@@ -1,4 +1,4 @@
-# LAB 02 - Lag din første Pod i AKS (med autentisering)
+# LAB 02 - Lag din første Pod i AKS
 
 ## Læringsmål
 
