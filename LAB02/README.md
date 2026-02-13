@@ -29,6 +29,13 @@ Installer Azure CLI:
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ```
 
+Installer Kubelogin
+
+```bash
+sudo az aks install-cli
+```
+
+
 ---
 
 # Del A — Autentisering mot AKS (koble kubectl til clusteret)
@@ -38,7 +45,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 Kjør:
 
 ```bash
-az login
+az login --use-device-code
 ```
 
 Hvis du har flere subscriptions, velg riktig:
@@ -83,7 +90,7 @@ kubectl get nodes
 ## 1) Lag et namespace for laben
 
 ```bash
-kubectl create namespace lab01
+kubectl create namespace lab01-<Ditt navn>
 ```
 
 Sjekk:
@@ -95,7 +102,7 @@ kubectl get ns
 ## 2) Lag en Pod (nginx)
 
 ```bash
-kubectl run nginx --image=nginx --restart=Never -n lab01
+kubectl run nginx --image=nginx --restart=Never -n <namespace>
 ```
 
 > `--restart=Never` gjør dette til en “ren” Pod (ikke Deployment).
@@ -103,7 +110,7 @@ kubectl run nginx --image=nginx --restart=Never -n lab01
 ## 3) Se status
 
 ```bash
-kubectl get pods -n lab01
+kubectl get pods -n <namespace>
 ```
 
 Vent til du ser `Running`.
@@ -111,7 +118,7 @@ Vent til du ser `Running`.
 ## 4) Inspiser Poden (viktig!)
 
 ```bash
-kubectl describe pod nginx -n lab01
+kubectl describe pod nginx -n <namespace>
 ```
 
 👉 Oppgaver:
@@ -127,7 +134,7 @@ kubectl describe pod nginx -n lab01
 ## 1) Port-forward til Poden
 
 ```bash
-kubectl port-forward pod/nginx 8080:80 -n lab01
+kubectl port-forward pod/nginx 8080:80 -n <namespace>
 ```
 
 Åpne i nettleser:
@@ -139,7 +146,7 @@ Stop port-forward med `CTRL+C`.
 ## 2) Kjør kommando inni Poden
 
 ```bash
-kubectl exec -it nginx -n lab01 -- /bin/sh
+kubectl exec -it nginx -n <namespace> -- /bin/sh
 ```
 
 Inne i Poden, kjør:
@@ -150,16 +157,12 @@ ls -la
 exit
 ```
 
-👉 Oppgave:
-
-* Hva er forskjellen på å “se på” Poden og å “gå inn i” Poden?
-
 ## 3) Sjekk logs
 
 Nginx logger lite uten trafikk, men prøv:
 
 ```bash
-kubectl logs nginx -n lab01
+kubectl logs nginx -n <namespace>
 ```
 
 ---
@@ -169,99 +172,18 @@ kubectl logs nginx -n lab01
 Slett Pod + namespace:
 
 ```bash
-kubectl delete pod nginx -n lab01
-kubectl delete namespace lab01
+kubectl delete pod nginx -n <namespace>
+kubectl delete namespace <namespace>
 ```
 
 ---
 
-# 🧠 Mini-quiz (2 minutter)
+# Mini-quiz
 
 1. Hva er en Pod?
 2. Hvorfor endrer Pod IP seg hvis den blir erstattet?
 3. Hvor finner du feil hvis Pod ikke starter?
 4. Hva gjør `kubectl describe` som `kubectl get` ikke gjør?
-
----
-
-# 🛠️ Feilsøking (vanlige problemer)
-
-## 1) “You must be logged in …” / blir bedt om å autentisere hele tiden
-
-Dette skyldes ofte Entra/Azure RBAC-oppsett og at kubeconfig må konverteres med kubelogin.
-
-Kjør:
-
-```bash
-kubelogin convert-kubeconfig -l azurecli
-```
-
-Prøv så:
-
-```bash
-kubectl get nodes
-```
-
-Dette er en vanlig løsning i AKS med Entra-integrasjon. ([Microsoft Learn][1])
-
----
-
-## 2) “Forbidden” på `kubectl get nodes`
-
-Da er du autentisert, men mangler **rettigheter** i clusteret (RBAC).
-Typisk: du er ikke i riktig Entra-gruppe/rolle.
-
-Hva du kan gjøre i lab:
-
-* Prøv `kubectl get pods -A` og se om alt er forbidden
-* Kontakt instruktør for å få tildelt riktig tilgang
-
-(AKS kan styres via Azure RBAC for Kubernetes Authorization.) ([Microsoft Learn][3])
-
----
-
-## 3) Pod står i `ImagePullBackOff` / `ErrImagePull`
-
-Sjekk:
-
-```bash
-kubectl describe pod nginx -n lab01
-```
-
-Se under **Events** for feilmelding (f.eks. registry/blokkering).
-
----
-
-## 4) Pod står i `Pending`
-
-Vanlig årsak: ingen kapasitet / scheduling-problem.
-
-Sjekk:
-
-```bash
-kubectl describe pod nginx -n lab01
-```
-
-Se under **Events** (scheduler forklarer hvorfor).
-
----
-
-## 5) Context-feil: “no configuration has been provided”
-
-Da mangler kubeconfig eller du peker på feil context.
-
-Sjekk:
-
-```bash
-kubectl config get-contexts
-kubectl config current-context
-```
-
-Hent credentials på nytt:
-
-```bash
-az aks get-credentials -g "<RG>" -n "<CLUSTER>" --overwrite-existing
-```
 
 ---
 
