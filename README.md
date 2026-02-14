@@ -15,7 +15,7 @@ Alt vi gjør videre i workshopen skjer i **WSL (Debian)**.
 
 ---
 
-# 1️⃣ Installer PowerShell 7
+# 1️ Installer PowerShell 7
 
 ## Sjekk om du allerede har det:
 
@@ -48,7 +48,7 @@ Du skal se versjon 7.x
 
 ---
 
-# 2️⃣ Installer WSL2
+# 2️ Installer WSL2
 
 Åpne PowerShell som Administrator og kjør:
 
@@ -80,7 +80,7 @@ wsl --set-default-version 2
 
 ---
 
-# 3️⃣ Installer Debian i WSL
+# 3️ Installer Debian i WSL
 
 Installer Debian:
 
@@ -105,7 +105,7 @@ Dette setter "default" distro til å være Debian
 
 ---
 
-# 4️⃣ Oppdater Debian
+# 4️ Oppdater Debian
 
 Inne i Debian (WSL):
 
@@ -116,7 +116,7 @@ sudo apt upgrade -y
 
 ---
 
-# 5️⃣ Installer Azure CLI (az)
+# 5️ Installer Azure CLI (az)
 
 Kjør i Debian:
 
@@ -132,7 +132,7 @@ az version
 
 ---
 
-# 6️⃣ Installer kubectl
+# 6️ Installer kubectl
 
 Installer med Azure CLI:
 
@@ -148,7 +148,7 @@ kubectl version --client
 
 ---
 
-# 7️⃣ Installer kubelogin
+# 7️ Installer kubelogin
 
 Dette trengs for AKS med Entra ID / Azure RBAC.
 
@@ -176,7 +176,7 @@ kubelogin --version
 
 ---
 
-# 8️⃣ Test at alt fungerer
+# 8️ Test at alt fungerer
 
 Test i WSL:
 
@@ -194,7 +194,7 @@ az account show
 
 ---
 
-# 9️⃣ Koble til AKS (gjøres under workshop)
+# 9️ Koble til AKS (gjøres under workshop)
 
 ```bash
 az aks get-credentials -g <RESOURCE_GROUP> -n <CLUSTER_NAME> --overwrite-existing
@@ -204,12 +204,106 @@ kubectl get nodes
 
 ---
 
+
+Her er den oppdaterte delen du kan lime inn i README-en 👇
+
+Du kan legge den som **ny seksjon etter installasjon av verktøyene**, før dere starter labene.
+
+---
+
+# 10 Hent workshop-repoet fra GitHub
+
+Alle øvelser og YAML-filer ligger i repoet:
+
+👉 [https://github.com/kevnor/workshop-kubernetes](https://github.com/kevnor/workshop-kubernetes)
+
+---
+
+## 1) Gå til hjemmemappen i WSL
+
+I Debian (WSL):
+
+```bash
+cd ~
+```
+
+Opprett en workshop-mappe (hvis du ikke allerede har):
+
+```bash
+mkdir workshop
+cd workshop
+```
+
+---
+
+## 2) Klon repoet
+
+```bash
+git clone https://github.com/kevnor/workshop-kubernetes.git
+```
+
+Gå inn i repoet:
+
+```bash
+cd workshop-kubernetes
+```
+
+---
+
+## 3) Åpne i VS Code
+
+For å åpne prosjektet i VS Code fra WSL:
+
+```bash
+code .
+```
+
+Hvis dette fungerer:
+
+* VS Code åpner
+* Nederst til venstre står det: **WSL: Debian**
+
+Hvis ikke fungerer:
+
+Installer VS Code fra:
+[https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+Og installer extension:
+**Remote - WSL**
+
+---
+
+# ⚠️ Viktig
+
+Du skal jobbe i:
+
+```
+/home/<brukernavn>/workshop/workshop-kubernetes
+```
+
+❌ Ikke jobb i `/mnt/c/...`
+❌ Ikke klon repoet i OneDrive
+
+---
+
+# ✅ Ferdig
+
+Når dette fungerer skal du kunne:
+
+```bash
+cd ~/workshop/workshop-kubernetes
+code .
+```
+
+
+---
+
 # Viktige regler under workshop
 
-✅ Jobb i WSL (Debian)
-❌ Ikke bruk Git Bash
-❌ Ikke bruk Windows PowerShell til kubectl
-❌ Ikke jobb i `/mnt/c/...`
+* ✅ Jobb i WSL (Debian)
+* ❌ Ikke bruk Git Bash
+* ❌ Ikke bruk Windows PowerShell til kubectl
+* ❌ Ikke jobb i `/mnt/c/...`
 
 Bruk:
 
