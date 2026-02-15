@@ -281,8 +281,8 @@ Du skal jobbe i:
 /home/<brukernavn>/workshop/workshop-kubernetes
 ```
 
-❌ Ikke jobb i `/mnt/c/...`
-❌ Ikke klon repoet i OneDrive
+* ❌ Ikke jobb i `/mnt/c/...`
+* ❌ Ikke klon repoet i OneDrive
 
 ---
 

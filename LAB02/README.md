@@ -12,29 +12,6 @@ Etter laben skal du kunne:
 
 ---
 
-## Forutsetninger
-
-Du må ha installert:
-
-* **Azure CLI** (`az`)
-* **kubectl**
-* **kubelogin** (ofte nødvendig i AKS med Microsoft Entra ID / Azure RBAC) ([Microsoft Learn][1])
-
-Installer Azure CLI:
-
-```bash
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-```
-
-Installer Kubelogin
-
-```bash
-sudo az aks install-cli
-```
-
-
----
-
 # Del A — Autentisering mot AKS (koble kubectl til clusteret)
 
 ## 1) Logg inn i Azure
@@ -185,6 +162,6 @@ kubectl delete namespace <namespace>
 ---
 
 
-[1]: https://learn.microsoft.com/en-us/azure/aks/kubelogin-authentication?utm_source=chatgpt.com "Use kubelogin to authenticate in Azure Kubernetes Service (AKS) - Azure ..."
-[2]: https://learn.microsoft.com/en-us/azure/aks/control-kubeconfig-access?utm_source=chatgpt.com "Limit access to kubeconfig in Azure Kubernetes Service (AKS) - Azure ..."
-[3]: https://learn.microsoft.com/en-us/azure/aks/manage-azure-rbac?utm_source=chatgpt.com "Use Azure RBAC for Kubernetes Authorization - Azure Kubernetes Service"
+[1]: https://learn.microsoft.com/en-us/azure/aks/kubelogin-authentication "Use kubelogin to authenticate in Azure Kubernetes Service (AKS) - Azure ..."
+[2]: https://learn.microsoft.com/en-us/azure/aks/control-kubeconfig-access "Limit access to kubeconfig in Azure Kubernetes Service (AKS) - Azure ..."
+[3]: https://learn.microsoft.com/en-us/azure/aks/manage-azure-rbac "Use Azure RBAC for Kubernetes Authorization - Azure Kubernetes Service"
