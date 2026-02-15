@@ -204,13 +204,6 @@ kubectl get nodes
 
 ---
 
-
-Her er den oppdaterte delen du kan lime inn i README-en 👇
-
-Du kan legge den som **ny seksjon etter installasjon av verktøyene**, før dere starter labene.
-
----
-
 # 10 Hent workshop-repoet fra GitHub
 
 Alle øvelser og YAML-filer ligger i repoet:
