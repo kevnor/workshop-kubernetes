@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-config
-data:
-  APP_ENV: "production"
-  API_URL: "https://api.prod.company.com"
-
-

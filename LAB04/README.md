@@ -133,7 +133,7 @@ kubectl apply -f deployment.yaml
 Sjekk:
 
 ```bash
-kubectl get pods -n lab03
+kubectl get pods -n <namespace>
 ```
 
 ---
@@ -143,13 +143,13 @@ kubectl get pods -n lab03
 Finn pod-navn:
 
 ```bash
-kubectl get pods -n lab03
+kubectl get pods -n <namespace>
 ```
 
 Gå inn i poden:
 
 ```bash
-kubectl exec -it <podnavn> -n lab03 -- /bin/sh
+kubectl exec -it <podnavn> -n <namespace> -- /bin/sh
 ```
 
 Sjekk miljøvariabler:
@@ -206,7 +206,7 @@ Eksisterende Pods får ikke automatisk oppdatert env-vars.
 Restart deployment:
 
 ```bash
-kubectl rollout restart deployment web -n lab03
+kubectl rollout restart deployment web -n <namespace>
 ```
 
 Sjekk igjen med `exec`.
