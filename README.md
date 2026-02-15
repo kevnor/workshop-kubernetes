@@ -261,9 +261,6 @@ Hvis ikke fungerer:
 Installer VS Code fra:
 [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-Og installer extension:
-**Remote - WSL**
-
 ---
 
 # ⚠️ Viktig
@@ -286,24 +283,6 @@ Når dette fungerer skal du kunne:
 ```bash
 cd ~/workshop/workshop-kubernetes
 code .
-```
-
-
----
-
-# Viktige regler under workshop
-
-* ✅ Jobb i WSL (Debian)
-* ❌ Ikke bruk Git Bash
-* ❌ Ikke bruk Windows PowerShell til kubectl
-* ❌ Ikke jobb i `/mnt/c/...`
-
-Bruk:
-
-```bash
-cd ~
-mkdir workshop
-cd workshop
 ```
 
 ---
