@@ -175,9 +175,63 @@ Test:
 kubelogin --version
 ```
 
+# 8 Installer Docker
+
+Dette trengs for å kunne lage iamges og kjøre containere lokalt.
+
+Kjør hver kommando under (en og en) for å sette opp apt-repoet:
+
+```bash
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/debian
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+```
+
+Installer Docker:
+
+```bash
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Sørg for at du har rett tilganger:
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
+
+Restart WSL for at permissions skal oppdatere seg:
+
+```bash
+exit
+wsl --shutdown
+wsl
+```
+
+Gå tilbake til mappenN
+
+```bash
+cd ~/workshop/workshop-kubernetes
+```
+
+
 ---
 
-# 8️ Test at alt fungerer
+# 9 Test at alt fungerer
 
 Test i WSL:
 
@@ -195,7 +249,7 @@ az account show
 
 ---
 
-# 9️ Koble til AKS (gjøres under workshop)
+# 10 Koble til AKS (gjøres under workshop)
 
 ```bash
 az aks get-credentials -g <RESOURCE_GROUP> -n <CLUSTER_NAME> --overwrite-existing
@@ -205,7 +259,7 @@ kubectl get nodes
 
 ---
 
-# 10 Hent workshop-repoet fra GitHub
+# 11 Hent workshop-repoet fra GitHub
 
 Alle øvelser og YAML-filer ligger i repoet:
 
