@@ -121,6 +121,7 @@ sudo apt upgrade -y
 Kjør i Debian:
 
 ```bash
+sudo apt install curl -y
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ```
 
