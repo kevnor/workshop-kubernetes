@@ -161,7 +161,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web-lb
-  namespace: lab02
 spec:
   type: LoadBalancer
   selector:
