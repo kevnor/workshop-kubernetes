@@ -139,19 +139,6 @@ Nginx logger lite uten trafikk, men prøv:
 kubectl logs nginx -n <namespace>
 ```
 
----
-
-# Del D — Rydd opp
-
-Slett Pod + namespace:
-
-```bash
-kubectl delete pod nginx -n <namespace>
-kubectl delete namespace <namespace>
-```
-
----
-
 # Mini-quiz
 
 1. Hva er en Pod?
