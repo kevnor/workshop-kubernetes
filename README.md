@@ -233,6 +233,7 @@ cd workshop
 ## 2) Klon repoet
 
 ```bash
+sudo apt install git
 git clone https://github.com/kevnor/workshop-kubernetes.git
 ```
 
