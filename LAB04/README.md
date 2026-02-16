@@ -31,7 +31,7 @@ data:
 Apply:
 
 ```bash
-kubectl apply -f configmap.yaml
+kubectl apply -f configmap.yaml -n <namespace>
 ```
 
 Sjekk:
@@ -72,7 +72,7 @@ echo -n "supersecret" | base64
 Apply:
 
 ```bash
-kubectl apply -f secret.yaml
+kubectl apply -f secret.yaml -n <namespace>
 ```
 
 Sjekk:
@@ -127,7 +127,7 @@ spec:
 Apply:
 
 ```bash
-kubectl apply -f deployment.yaml
+kubectl apply -f deployment.yaml -n <namespace>
 ```
 
 Sjekk:
@@ -196,7 +196,7 @@ APP_ENV: "production"
 Apply igjen:
 
 ```bash
-kubectl apply -f configmap.yaml
+kubectl apply -f configmap.yaml -n <namespace>
 ```
 
 ⚠️ Viktig:
